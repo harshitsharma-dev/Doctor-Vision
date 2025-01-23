@@ -12,216 +12,188 @@
   <link rel="stylesheet" type="text/css" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.14.0/maps/maps.css">
   <style>
     body {
-      background-color: #f8f9fa;
-      font-family: 'Poppins', sans-serif;
+        background-color: #f0f9f4; /* Light greenish-blue background */
+        font-family: 'Poppins', sans-serif;
     }
 
     .sidebar {
-      background-color: #00394d;
-      color: white;
-      padding-top: 20px;
-      min-height: 100vh;
-      box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.1);
+        background-color: #00796b; /* Teal for a clean medical look */
+        color: white;
+        padding-top: 20px;
+        min-height: 100vh;
+        box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.1);
     }
 
     .sidebar a {
-      color: #fff;
-      padding: 15px;
-      text-decoration: none;
-      display: block;
-      font-size: 1.1rem;
-      transition: background-color 0.3s ease;
+        color: #ffffff;
+        padding: 15px;
+        text-decoration: none;
+        display: block;
+        font-size: 1.1rem;
+        transition: background-color 0.3s ease;
     }
 
     .sidebar a:hover {
-      background-color: #002a3a;
+        background-color: #005b4f; /* Darker teal */
     }
 
     .topbar {
-      background-color: #007acc;
-      padding: 15px;
-      color: white;
-      text-align: center;
-      border-bottom: 3px solid #004d66;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        background-color: #43a047; /* Green for healthcare focus */
+        padding: 15px;
+        color: white;
+        text-align: center;
+        border-bottom: 3px solid #2e7d32; /* Darker green */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .topbar input {
-      width: 70%;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      margin-right: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 70%;
+        padding: 10px;
+        border: 1px solid #c8e6c9; /* Soft green border */
+        border-radius: 5px;
+        margin-right: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .topbar button {
-      background-color: #004d66;
-      border: none;
-      padding: 10px 20px;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      box-shadow: 0 4px 8px rgba(0, 77, 102, 0.3);
+        background-color: #2e7d32; /* Medical green */
+        border: none;
+        padding: 10px 20px;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
     }
 
     .topbar button:hover {
-      background-color: #00394d;
-      transform: scale(1.05);
+        background-color: #1b5e20; /* Dark green */
+        transform: scale(1.05);
     }
 
     #map {
-      height: 500px;
-      margin-bottom: 20px;
-      border-radius: 15px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        height: 500px;
+        margin-bottom: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .highlight {
-      background-color: #fff3cd;
-      padding: 15px;
-      margin-top: 20px;
-      font-size: 1.2em;
-      border-radius: 8px;
-      border-left: 5px solid #ffc107;
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: #e8f5e9; /* Soft green highlight */
+        padding: 15px;
+        margin-top: 20px;
+        font-size: 1.2em;
+        border-radius: 8px;
+        border-left: 5px solid #66bb6a; /* Lighter green */
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .detail-item {
-      margin-top: 15px;
+        margin-top: 15px;
     }
 
     .main-content {
-      padding: 30px;
-      background-color: #fff;
-      border-radius: 15px;
-      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
-      margin-top: 20px;
+        padding: 30px;
+        background-color: #f9fff7; /* Very light greenish white */
+        border-radius: 15px;
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
     }
 
-    /* Updated Chatbot Container Styling */
-.chatbot-container {
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 250px;
-    height: 100vh;
-    background-color: #007acc;
-    color: white;
-    padding: 20px;
-    box-shadow: -3px 0px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 0;
-    z-index: 1000;
-}
+    /* Chatbot Styling (Position Preserved) */
+    .chatbot-container {
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 250px;
+        height: 100vh;
+        background-color: #43a047; /* Green header */
+        color: white;
+        padding: 20px;
+        box-shadow: -3px 0px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        overflow-y: auto;
+    }
 
-.chatbot-container h4 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: white;
-}
+    .chatbot-container h4 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: white;
+    }
 
-.chatbot-container ul {
-    padding: 0;
-    list-style-type: none;
-}
+    .chatbot-container ul li {
+        background-color: #2e7d32; /* Dark green */
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        color: white;
+        transition: background-color 0.3s ease;
+    }
 
-.chatbot-container ul li {
-    background-color: #004d66;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    .chatbot-container ul li:hover {
+        background-color: #1b5e20; /* Darker green */
+    }
 
-.chatbot-container ul li:hover {
-    background-color: #00394d;
-}
+    .chatbot-container input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 15px;
+        border: 1px solid #c8e6c9;
+        border-radius: 5px;
+        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.05);
+    }
 
-.chatbot-container input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 15px;
-    border: none;
-    border-radius: 5px;
-    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.05);
-}
+    .chatbot-container button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: none;
+        background-color: #2e7d32; /* Dark green */
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
 
-.chatbot-container button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: none;
-    background-color: #004d66;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.chatbot-container button:hover {
-    background-color: #00394d;
-}
-
-/* Scrollable Chatbot Output */
-#chatResponse {
-    max-height: 150px;
-    overflow-y: auto;
-    background-color: #f0f4f9;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.1);
-    color: black;
-}
-
+    .chatbot-container button:hover {
+        background-color: #1b5e20; /* Darker green */
+    }
 
     footer {
-      background-color: #004d66;
-      color: white;
-      padding: 40px;
-      text-align: center;
-      position: relative;
-      width: 100%;
-      bottom: 0;
-      z-index: 1;
+        background-color: #2e7d32; /* Dark green */
+        color: white;
+        padding: 40px;
+        text-align: center;
     }
 
     footer p {
-      margin: 0;
-      font-size: 14px;
+        margin: 0;
+        font-size: 14px;
     }
 
     footer a {
-      color: white;
-      text-decoration: underline;
-    }
-
-    .btn {
-      border-radius: 30px;
-      padding: 12px 25px;
-      font-size: 16px;
-      transition: all 0.3s ease;
+        color: #a5d6a7; /* Light green */
+        text-decoration: underline;
     }
 
     .btn-primary {
-      background-color: #007acc;
-      border: none;
+        background-color: #43a047; /* Green */
+        border: none;
     }
 
     .btn-primary:hover {
-      background-color: #005f99;
+        background-color: #388e3c; /* Darker green */
     }
 
     .btn-success {
-      background-color: #28a745;
+        background-color: #66bb6a; /* Lighter green */
     }
 
     .btn-secondary {
-      background-color: #6c757d;
+        background-color: #81c784; /* Soft green */
     }
-  </style>
+</style>
+
 </head>
 <body>
   <div class="container-fluid">
@@ -230,7 +202,7 @@
       <nav class="col-md-2 sidebar">
         <h4 class="text-center">Doctor Vision</h4>
         <a href="/">Home</a>
-        <a href="project">Diagnostic Tools</a>
+        <a href="diagnostics">Diagnostic Tools</a>
         <a href="research">Research</a>
         <a href="Finances">Finances</a>
         <a href="audit">Equipment Audit</a>
@@ -323,7 +295,7 @@
       
         <!-- Calculate Cost Button -->
         <div class="text-center mt-4">
-          <a href="bids"><button class="btn btn-primary" onclick="calculateCost()">Check It Quick</button></a>
+          <a href="research"><button class="btn btn-primary" onclick="calculateCost()">Check It Quick</button></a>
           
         </div>
       </main>

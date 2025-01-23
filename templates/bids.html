@@ -8,57 +8,57 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f4f9;
+            background-color: #f0f9f4; /* Light greenish-blue background */
             font-family: 'Helvetica Neue', Arial, sans-serif;
         }
-
+    
         .sidebar {
-            background-color: #00394d;
+            background-color: #2e7d32; /* Dark green for a professional medical look */
             color: white;
             padding-top: 20px;
             min-height: 100vh;
             box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.1);
         }
-
+    
         .sidebar a {
-            color: #fff;
+            color: #ffffff;
             padding: 15px;
             text-decoration: none;
             display: block;
             transition: background-color 0.3s, padding-left 0.3s;
             font-size: 1.1rem;
         }
-
+    
         .sidebar a:hover {
-            background-color: #002a3a;
+            background-color: #1b5e20; /* Darker green */
             padding-left: 25px;
         }
-
+    
         .main-content {
             padding: 30px;
-            background-color: #fff;
+            background-color: #ffffff; /* Neutral white for content */
             min-height: 100vh;
             border-radius: 10px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
-
+    
         .main-content h2 {
             font-size: 2rem;
             margin-bottom: 20px;
-            color: #004d66;
+            color: #2e7d32; /* Green for headings */
         }
-
+    
         .btn {
             margin-right: 10px;
             border-radius: 5px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
-
+    
         .btn:hover {
             transform: translateY(-2px);
         }
-
+    
         table {
             width: 100%;
             margin-top: 20px;
@@ -67,131 +67,132 @@
             overflow: hidden;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
-
+    
         th, td {
             padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-
+    
         th {
-            background-color: #007acc;
+            background-color: #43a047; /* Medium green for headers */
             color: white;
             font-weight: bold;
         }
-
+    
         tr:hover {
-            background-color: #f1f1f1;
+            background-color: #f1f8f3; /* Light green hover */
         }
-
+    
         td input {
             width: 100%;
             padding: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid #c8e6c9; /* Light green border */
             border-radius: 5px;
             box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.05);
         }
-
+    
         /* Updated Chatbot Container Styling */
-.chatbot-container {
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 250px;
-    height: 100vh;
-    background-color: #007acc;
-    color: white;
-    padding: 20px;
-    box-shadow: -3px 0px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 0;
-    z-index: 1000;
-}
-
-.chatbot-container h4 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: white;
-}
-
-.chatbot-container ul {
-    padding: 0;
-    list-style-type: none;
-}
-
-.chatbot-container ul li {
-    background-color: #004d66;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.chatbot-container ul li:hover {
-    background-color: #00394d;
-}
-
-.chatbot-container input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 15px;
-    border: none;
-    border-radius: 5px;
-    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.chatbot-container button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: none;
-    background-color: #004d66;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.chatbot-container button:hover {
-    background-color: #00394d;
-}
-
-/* Scrollable Chatbot Output */
-#chatResponse {
-    max-height: 150px;
-    overflow-y: auto;
-    background-color: #f0f4f9;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.1);
-    color: black;
-}
-
-
+        .chatbot-container {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background-color: #43a047; /* Medium green */
+            color: white;
+            padding: 20px;
+            box-shadow: -3px 0px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 0;
+            z-index: 1000;
+        }
+    
+        .chatbot-container h4 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+    
+        .chatbot-container ul {
+            padding: 0;
+            list-style-type: none;
+        }
+    
+        .chatbot-container ul li {
+            background-color: #2e7d32; /* Dark green */
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    
+        .chatbot-container ul li:hover {
+            background-color: #1b5e20; /* Darker green */
+        }
+    
+        .chatbot-container input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.05);
+        }
+    
+        .chatbot-container button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            background-color: #2e7d32; /* Dark green */
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+    
+        .chatbot-container button:hover {
+            background-color: #1b5e20; /* Darker green */
+        }
+    
+        /* Scrollable Chatbot Output */
+        #chatResponse {
+            max-height: 150px;
+            overflow-y: auto;
+            background-color: #f1f8f3; /* Light greenish background */
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.1);
+            color: black;
+        }
+    
         footer {
-            background-color: #004d66;
+            background-color: #2e7d32; /* Dark green */
             color: white;
             padding: 30px;
             text-align: center;
             position: relative;
             z-index: 999;
         }
-
+    
         footer a {
-            color: white;
+            color: #a5d6a7; /* Light green */
+            text-decoration: underline;
         }
-
+    
         @media (max-width: 768px) {
             .sidebar {
                 text-align: center;
             }
-
+    
             .main-content {
                 padding: 20px;
             }
         }
     </style>
+    
 </head>
 <body>
     <div class="container-fluid">
@@ -200,7 +201,7 @@
             <nav class="col-md-2 sidebar">
                 <h4 class="text-center">Doctor Vision</h4>
                 <a href="/">Home</a>
-                <a href="project">Diagnostic Tools</a>
+                <a href="diagnostics">Diagnostic Tools</a>
                 <a href="research">Research</a>
                 <a href="Finances">Finances</a>
                 <a href="audit">Equipment Audit</a>

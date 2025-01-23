@@ -12,135 +12,148 @@
   <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet">
   <style>
     body {
-      background-color: #f0f4f9;
-      font-family: 'Poppins', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+        background-color: #f0f9f4; /* Light greenish-blue background */
+        font-family: 'Poppins', sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
     }
+
     /* Sidebar Styling */
     .sidebar {
-      background-color: #004d66;
-      min-height: 100vh;
-      color: white;
-      padding-top: 20px;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #2e7d32; /* Dark green for a professional medical look */
+        min-height: 100vh;
+        color: white;
+        padding-top: 20px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     }
+
     .sidebar a {
-      color: #fff;
-      padding: 20px;
-      font-size: 1.1rem;
-      text-decoration: none;
-      display: block;
-      transition: background-color 0.3s ease, padding 0.2s ease;
+        color: #ffffff;
+        padding: 20px;
+        font-size: 1.1rem;
+        text-decoration: none;
+        display: block;
+        transition: background-color 0.3s ease, padding 0.2s ease;
     }
+
     .sidebar a:hover {
-      background-color: #005f73;
-      padding-left: 25px;
+        background-color: #1b5e20; /* Darker green */
+        padding-left: 25px;
     }
 
     /* Navbar Toggle for Mobile */
     .navbar-toggler {
-      margin-bottom: 20px;
+        margin-bottom: 20px;
     }
 
     /* Main Content */
     .main-content {
-      padding: 40px;
-      background-color: #fff;
-      border-radius: 15px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      margin: 20px auto;
+        padding: 40px;
+        background-color: #ffffff; /* Neutral white background for contrast */
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
     }
 
     h1, h2, p {
-      color: #004d66;
-      font-weight: 600;
+        color: #2e7d32; /* Green headers for a clean look */
+        font-weight: 600;
     }
+
     h1 {
-      font-size: 2.5rem;
+        font-size: 2.5rem;
     }
+
     h2 {
-      font-size: 2rem;
+        font-size: 2rem;
     }
+
     h3 {
-      font-size: 1.75rem;
+        font-size: 1.75rem;
     }
+
     p {
-      font-size: 1.1rem;
-      line-height: 1.6;
+        font-size: 1.1rem;
+        line-height: 1.6;
     }
 
     /* Highlight Section */
     .highlight {
-      background-color: #eef7fa;
-      padding: 25px;
-      margin-top: 20px;
-      border-left: 5px solid #007acc;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #e8f5e9; /* Soft green background for highlights */
+        padding: 25px;
+        margin-top: 20px;
+        border-left: 5px solid #66bb6a; /* Lighter green border */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .highlight h2 {
-      margin-bottom: 15px;
+        margin-bottom: 15px;
     }
 
     .highlight ul {
-      margin-top: 15px;
-      padding-left: 20px;
-      list-style-type: disc;
+        margin-top: 15px;
+        padding-left: 20px;
+        list-style-type: disc;
     }
+
     .highlight ul li {
-      margin-bottom: 10px;
-      line-height: 1.5;
+        margin-bottom: 10px;
+        line-height: 1.5;
     }
 
     /* Footer Styling */
     footer {
-      background-color: #004d66;
-      color: white;
-      padding: 40px;
-      text-align: center;
-      position: relative;
-      z-index: 999;
-      font-size: 16px;
-      margin-top: auto;
+        background-color: #2e7d32; /* Dark green for footer */
+        color: white;
+        padding: 40px;
+        text-align: center;
+        position: relative;
+        z-index: 999;
+        font-size: 16px;
+        margin-top: auto;
     }
+
     footer p {
-      margin: 0;
-      font-size: 14px;
+        margin: 0;
+        font-size: 14px;
     }
+
     footer a {
-      color: white;
-      text-decoration: underline;
-      transition: color 0.3s ease;
+        color: #a5d6a7; /* Light green */
+        text-decoration: underline;
+        transition: color 0.3s ease;
     }
+
     footer a:hover {
-      color: #00a8e1;
+        color: #81c784; /* Softer green on hover */
     }
 
     /* Button Styling */
     .btn-primary {
-      background: linear-gradient(135deg, #007acc, #00a8e1);
-      border: none;
-      padding: 12px 25px;
-      font-size: 16px;
-      border-radius: 30px;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      box-shadow: 0 4px 10px rgba(0, 122, 204, 0.3);
+        background: linear-gradient(135deg, #43a047, #66bb6a); /* Gradient for green buttons */
+        border: none;
+        padding: 12px 25px;
+        font-size: 16px;
+        border-radius: 30px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 4px 10px rgba(67, 160, 71, 0.3);
     }
+
     .btn-primary:hover {
-      background-color: #005f99;
-      transform: scale(1.05);
+        background-color: #388e3c; /* Dark green on hover */
+        transform: scale(1.05);
     }
 
     /* Responsive Adjustments */
     @media (max-width: 768px) {
-      .main-content {
-        padding: 20px;
-      }
+        .main-content {
+            padding: 20px;
+        }
     }
-  </style>
+</style>
+
 </head>
 <body>
   <div class="container-fluid">
