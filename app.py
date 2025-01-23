@@ -47,10 +47,7 @@ def query_groq(question):
     return "I only answer questions related to water and sanitation infrastructure pricing."
 
 # Routes to Render Pages
-
-@app.route('/')
-def index():
-    return render_template('index.html')  # Render index.html as the homepage
+  # Render index.html as the homepage
 
 
 @app.route('/upload', methods=['POST'])
@@ -78,37 +75,48 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 
+
+
+from flask import Flask, request, jsonify, render_template
+from inference_sdk import InferenceHTTPClient
+
+app = Flask(__name__)
+
 @app.route('/upload', methods=['POST'])
-def analyze_and_upload_image():
+def analyze_and_return_results():
     if 'file' not in request.files:
-        return jsonify({"error": "No file part"}), 400
+        return render_template('bids.html', error="No file part"), 400
 
     file = request.files['file']
     if file.filename == '':
-        return jsonify({"error": "No selected file"}), 400
+        return render_template('bids.html', error="No selected file"), 400
 
-    if file:
-        # Save the uploaded file
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        file.save(file_path)
+    try:
+        # Save the uploaded file to a local directory
+        filename = file.filename
+        upload_path = r"C:\Users\harsh\OneDrive\Documents\NewOne\uploads\\" + filename
+        file.save(upload_path)
 
-        try:
-            # Analyze with Brain Tumor Detection model
-            brain_tumor_result = CLIENT.infer(file_path, model_id="brain_tumour_detection-p4qam/1")
+        # Initialize the inference client
+        CLIENT = InferenceHTTPClient(
+            api_url="https://detect.roboflow.com",
+            api_key="gOIqsmnuwcSvDkVrVBd6"
+        )
 
-            # Analyze with TB Detection model
-            tb_result = CLIENT.infer(file_path, model_id="tb-chemm/1")
+        # Perform inference on the uploaded file
+        result = CLIENT.infer(upload_path, model_id="pneumonia-kefdw/1")
 
-            # Combine the results
-            combined_results = {
-                "brain_tumor_analysis": brain_tumor_result,
-                "tb_analysis": tb_result
-            }
+        # Extract relevant data from the result (customize this based on your result structure)
+        predictions = result.get("predictions", [])
+        confidence_scores = [pred.get("confidence") for pred in predictions]
+        print(predictions)
+        # Render results in the template
+        return render_template('bids.html', predictions=predictions, confidence_scores=confidence_scores)
 
-            # Return the combined results
-            return jsonify(combined_results), 200
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
+    except Exception as e:
+        # Handle any exceptions and render error in the template
+        return render_template('bids.html', error=f"An error occurred: {str(e)}"), 500
+
 
 @app.route('/diagnostics')
 def project():
@@ -136,6 +144,10 @@ def ask():
     except Exception as e:
         print(f"Error: {e}")  # Log the error
         return jsonify(response="Sorry, there was an error processing your request."), 500
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 # Run the Flask Application
 if __name__ == "__main__":

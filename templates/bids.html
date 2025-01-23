@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Bids Management - Civilytix Dashboard</title>
+    <title>Doctor Vision</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -198,7 +198,7 @@
         <div class="row">
             <!-- Sidebar -->
             <nav class="col-md-2 sidebar">
-                <h4 class="text-center">Civilytix</h4>
+                <h4 class="text-center">Doctor Vision</h4>
                 <a href="/">Home</a>
                 <a href="project">Diagnostic Tools</a>
                 <a href="research">Research</a>
@@ -210,30 +210,65 @@
             <!-- Main Content -->
             <div class="col-md-8 main-content">
                 <h2>Research Your Disease</h2>
-              
+            
                 <!-- Disease Selection -->
                 <div class="detail-item">
-                  <label for="diseaseSelect">Select Disease:</label>
-                  <select id="diseaseSelect" class="form-control mb-3" onchange="updateDiseaseInputs()">
-                    <option value="">-- Select Disease --</option>
-                    <option value="Brain Tumor">Brain Tumor</option>
-                    <option value="TB">Tuberculosis (TB)</option>
-                    <option value="Pneumonia">Pneumonia</option>
-                  </select>
+                    <label for="diseaseSelect">Select Disease:</label>
+                    <select id="diseaseSelect" class="form-control mb-3" onchange="updateDiseaseInputs()">
+                        <option value="">-- Select Disease --</option>
+                        <option value="Brain Tumor">Brain Tumor</option>
+                        <option value="TB">Tuberculosis (TB)</option>
+                        <option value="Pneumonia">Pneumonia</option>
+                    </select>
                 </div>
-              
+            
                 <!-- Upload Section -->
                 <div id="uploadSection" class="hidden">
-                  <h5>Upload Required Image:</h5>
-                  <div id="uploadInstruction" class="mb-3"></div>
-                  <input type="file" id="imageUpload" class="form-control mb-3" accept="image/*" onchange="previewImage()">
-                  <button class="btn btn-primary mb-3" onclick="uploadImage()">Upload Image</button>
-                  <div id="imagePreview" class="mt-3"></div>
+                    <h5>Upload Required Image:</h5>
+                    <div id="uploadInstruction" class="mb-3"></div>
+                    <form action="/upload" method="POST" enctype="multipart/form-data" target="_blank">
+                        <input type="file" name="file" id="imageUpload" class="form-control mb-3" accept="image/*" onchange="previewImage()">
+                        <button type="submit" class="btn btn-primary mb-3">Upload and Analyze</button>
+                    </form>
+                    <div id="imagePreview" class="mt-3"></div>
                 </div>
-              
-                <!-- Results Section -->
-                <div id="results"></div>
-              </div>
+            
+                
+                <h1>Analysis Results</h1>
+
+                {% if error %}
+                    <div style="color: red;">
+                        <p>Error: {{ error }}</p>
+                    </div>
+                {% elif predictions %}
+                    <div>
+                        <h2>Predictions:</h2>
+                        <table border="1" cellpadding="10" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Class ID</th>
+                                    <th>Confidence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for prediction in predictions %}
+                                    <tr>
+                                        <td>{{ prediction['class'] }}</td>
+                                        <td>{{ prediction['class_id'] }}</td>
+                                        <td>{{ prediction['confidence'] | round(4) }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p>No results to display.</p>
+                {% endif %}
+
+
+
+            </div>
               
     </div>
 
@@ -243,10 +278,10 @@
         <div id="suggestions">
             <p>How can I assist you?</p>
             <ul>
-                <li onclick="setQuestion('Show me the project details')">Show me the project details</li>
-                <li onclick="setQuestion('How do I calculate bids?')">How do I calculate bids?</li>
+                <li onclick="setQuestion('what MRI can detect')">what MRI can detect</li>
+                <li onclick="setQuestion('What is X RAY?')">What is X RAY?</li>
                 <li onclick="setQuestion('What are the financial stats?')">What are the financial stats?</li>
-                <li onclick="setQuestion('View audit reports')">View audit reports</li>
+                <li onclick="setQuestion('View audit reports')">These are t</li>
             </ul>
         </div>
         <input type="text" id="chatInput" class="form-control" placeholder="Type your message..." />
@@ -259,38 +294,37 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="row">
-                <!-- About Us Section -->
-                <div class="col-md-4">
-                    <h5>About Civilytix</h5>
-                    <p>Civilytix is a leading platform providing innovative solutions for infrastructure project management, ensuring transparency, efficiency, and sustainability.</p>
-                </div>
-      
-                <!-- Contact Information -->
-                <div class="col-md-4">
-                    <h5>Contact Us</h5>
-                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:info@civilytix.com">info@civilytix.com</a></p>
-                    <p><i class="fas fa-phone"></i> Phone: +1 123 456 7890</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Address: 1234 Street Name, City, Country</p>
-                </div>
-      
-                <!-- Social Media Links -->
-                <div class="col-md-4">
-                    <h5>Follow Us</h5>
-                    <a href="#"><i class="fab fa-facebook-square fa-2x"></i></a>
-                    <a href="#"><i class="fab fa-twitter-square fa-2x"></i></a>
-                    <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
-                    <a href="#"><i class="fab fa-instagram-square fa-2x"></i></a>
-                </div>
+          <div class="row">
+            <div class="col-md-4">
+              <h5>About Doctor Vision</h5>
+              <p>
+                Doctor Vision integrates AI and computer vision to deliver innovative solutions in medical diagnostics, empowering healthcare professionals and improving patient outcomes.
+              </p>
             </div>
-            <div class="row mt-3">
-                <div class="col-12">
-                    <p>&copy; 2024 Civilytix. All rights reserved.</p>
-                </div>
+      
+            <div class="col-md-4">
+              <h5>Contact Us</h5>
+              <p>Email: <a href="mailto:info@doctorvision.com">info@doctorvision.com</a></p>
+              <p>Phone: +1 123 456 7890</p>
+              <p>Address: 1234 HealthTech Avenue, City, Country</p>
             </div>
+      
+            <div class="col-md-4">
+              <h5>Follow Us</h5>
+              <a href="#"><i class="fab fa-facebook-square fa-2x"></i></a>
+              <a href="#"><i class="fab fa-twitter-square fa-2x"></i></a>
+              <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
+              <a href="#"><i class="fab fa-instagram-square fa-2x"></i></a>
+            </div>
+          </div>
+      
+          <div class="row mt-3">
+            <div class="col-12">
+              <p>&copy; 2025 Doctor Vision. All rights reserved.</p>
+            </div>
+          </div>
         </div>
-    </footer>
-
+      </footer>
     <!-- Add Font Awesome for Icons -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 
@@ -399,196 +433,7 @@ function uploadImage() {
 
 
 
-        let criteria = ['Bid Price', 'Reputation', 'Project Success Rate', 'Work History (years)', 'Proposed Duration (months)'];
-        let weights = [-0.3, 0.2, 0.2, 0.2, 0.1];
-
-        function addBidRow(name = '', bidPrice = '', rep = '', successRate = '', workHistory = '', duration = '') {
-            const table = document.getElementById('bidsTable').getElementsByTagName('tbody')[0];
-            const newRow = table.insertRow();
-            const nameCell = newRow.insertCell();
-            const nameInput = document.createElement('input');
-            nameInput.type = 'text';
-            nameInput.value = name || '';
-            nameInput.placeholder = 'Enter bidder name';
-            nameCell.appendChild(nameInput);
-
-            const anomalyCell = newRow.insertCell();
-            anomalyCell.textContent = 'N/A';
-
-            const bidPriceCell = newRow.insertCell();
-            const bidPriceInput = document.createElement('input');
-            bidPriceInput.type = 'number';
-            bidPriceInput.value = bidPrice || '';
-            bidPriceInput.placeholder = 'Enter bid price';
-            bidPriceCell.appendChild(bidPriceInput);
-
-            const reputationCell = newRow.insertCell();
-            const reputationInput = document.createElement('input');
-            reputationInput.type = 'number';
-            reputationInput.value = rep || '';
-            reputationInput.placeholder = 'Enter reputation';
-            reputationCell.appendChild(reputationInput);
-
-            const successRateCell = newRow.insertCell();
-            const successRateInput = document.createElement('input');
-            successRateInput.type = 'number';
-            successRateInput.value = successRate || '';
-            successRateInput.placeholder = 'Enter success rate';
-            successRateCell.appendChild(successRateInput);
-
-            const workHistoryCell = newRow.insertCell();
-            const workHistoryInput = document.createElement('input');
-            workHistoryInput.type = 'number';
-            workHistoryInput.value = workHistory || '';
-            workHistoryInput.placeholder = 'Enter work history';
-            workHistoryCell.appendChild(workHistoryInput);
-
-            const durationCell = newRow.insertCell();
-            const durationInput = document.createElement('input');
-            durationInput.type = 'number';
-            durationInput.value = duration || '';
-            durationInput.placeholder = 'Enter proposed duration';
-            durationCell.appendChild(durationInput);
-        }
-
-        function addCriteriaColumn() {
-            const newCrit = prompt("Enter new criterion name:");
-            const newWeight = parseFloat(prompt("Enter weight for this criterion:"));
-            if (!newCrit || isNaN(newWeight)) {
-                alert("Invalid name or weight.");
-                return;
-            }
-            criteria.push(newCrit);
-            weights.push(newWeight);
-
-            const table = document.getElementById('bidsTable');
-            const headerRow = table.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
-            const newHeaderCell = document.createElement('th');
-            newHeaderCell.textContent = newCrit;
-            headerRow.appendChild(newHeaderCell);
-
-            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-            Array.from(rows).forEach(row => {
-                const cell = row.insertCell();
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.placeholder = `Enter ${newCrit.toLowerCase()}`;
-                cell.appendChild(input);
-            });
-        }
-
-        function normalizeColumn(values, reverse = false) {
-            const min = Math.min(...values);
-            const max = Math.max(...values);
-            return values.map(value => {
-                if (reverse) {
-                    return (max - value) / (max - min);
-                } else {
-                    return (value - min) / (max - min);
-                }
-            });
-        }
-
-        function calculateBids() {
-            const table = document.getElementById('bidsTable');
-            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-            const scores = [];
-
-            const bidPrices = [], reputations = [], successRates = [], workHistories = [], durations = [];
-            Array.from(rows).forEach(row => {
-                bidPrices.push(parseFloat(row.cells[2].getElementsByTagName('input')[0].value));
-                reputations.push(parseFloat(row.cells[3].getElementsByTagName('input')[0].value));
-                successRates.push(parseFloat(row.cells[4].getElementsByTagName('input')[0].value));
-                workHistories.push(parseFloat(row.cells[5].getElementsByTagName('input')[0].value));
-                durations.push(parseFloat(row.cells[6].getElementsByTagName('input')[0].value));
-            });
-
-            const normBidPrices = normalizeColumn(bidPrices, true);
-            const normReputations = normalizeColumn(reputations);
-            const normSuccessRates = normalizeColumn(successRates);
-            const normWorkHistories = normalizeColumn(workHistories);
-            const normDurations = normalizeColumn(durations);
-
-            Array.from(rows).forEach((row, index) => {
-                let score = 0;
-                score += normBidPrices[index] * weights[0];
-                score += normReputations[index] * weights[1];
-                score += normSuccessRates[index] * weights[2];
-                score += normWorkHistories[index] * weights[3];
-                score += normDurations[index] * weights[4];
-
-                const anomalyStatus = row.cells[1].textContent;
-                if (anomalyStatus === 'Normal') {
-                    scores.push({ name: row.cells[0].getElementsByTagName('input')[0].value, score });
-                }
-            });
-
-            scores.sort((a, b) => b.score - a.score);
-
-            const resultTable = document.createElement('table');
-            resultTable.className = 'table table-striped';
-            const thead = resultTable.createTHead();
-            const tbody = resultTable.createTBody();
-            const headerRow = thead.insertRow();
-            ['Rank', 'Bidder Name', 'Score'].forEach(text => {
-                const th = document.createElement('th');
-                th.textContent = text;
-                headerRow.appendChild(th);
-            });
-
-            scores.forEach((result, index) => {
-                const row = tbody.insertRow();
-                row.insertCell().textContent = index + 1;
-                row.insertCell().textContent = result.name;
-                row.insertCell().textContent = result.score.toFixed(2);
-            });
-
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = '';
-            resultsDiv.appendChild(resultTable);
-        }
-
-        function detectAnomalies() {
-            const table = document.getElementById('bidsTable');
-            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-            const prices = [];
-
-            Array.from(rows).forEach(row => {
-                const price = parseFloat(row.cells[2].getElementsByTagName('input')[0].value);
-                prices.push(price);
-            });
-
-            const mean = prices.reduce((a, b) => a + b, 0) / prices.length;
-            const stdDev = Math.sqrt(prices.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b, 0) / prices.length);
-
-            Array.from(rows).forEach(row => {
-                const price = parseFloat(row.cells[2].getElementsByTagName('input')[0].value);
-                const anomalyCell = row.cells[1];
-                if (Math.abs(price - mean) > 1.5 * stdDev) {
-                    anomalyCell.textContent = 'Anomaly';
-                    anomalyCell.style.color = 'red';
-
-                    const keepNormalButton = document.createElement('button');
-                    keepNormalButton.textContent = 'Mark as Normal';
-                    keepNormalButton.className = 'btn btn-sm btn-outline-secondary';
-                    keepNormalButton.onclick = function() {
-                        anomalyCell.textContent = 'Normal';
-                        anomalyCell.style.color = 'green';
-                    };
-                    anomalyCell.appendChild(keepNormalButton);
-                } else {
-                    anomalyCell.textContent = 'Normal';
-                    anomalyCell.style.color = 'green';
-                }
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            addBidRow('Bidder 1', 50000, 88, 95, 5, 12);
-            addBidRow('Bidder 2', 60000, 67, 80, 8, 10);
-            addBidRow('Bidder 3', 45000, 75, 60, 3, 8);
-            addBidRow('Bidder 4', 70000, 90, 89, 10, 7);
-        });
+        
     </script>
 
     <script>
