@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Doctor Vision Guided Tour</title>
+  <!-- Google Fonts for Modern Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Intro.js CSS -->
+  <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f0f4f9;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Sidebar Styling */
+    .sidebar {
+      background-color: #004d66;
+      min-height: 100vh;
+      color: white;
+      padding-top: 20px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar a {
+      color: #fff;
+      padding: 20px;
+      font-size: 1.1rem;
+      text-decoration: none;
+      display: block;
+      transition: background-color 0.3s ease, padding 0.2s ease;
+    }
+    .sidebar a:hover {
+      background-color: #005f73;
+      padding-left: 25px;
+    }
+
+    /* Navbar Toggle for Mobile */
+    .navbar-toggler {
+      margin-bottom: 20px;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 40px;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+    }
+
+    h1, h2, p {
+      color: #004d66;
+      font-weight: 600;
+    }
+    h1 {
+      font-size: 2.5rem;
+    }
+    h2 {
+      font-size: 2rem;
+    }
+    h3 {
+      font-size: 1.75rem;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* Highlight Section */
+    .highlight {
+      background-color: #eef7fa;
+      padding: 25px;
+      margin-top: 20px;
+      border-left: 5px solid #007acc;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .highlight h2 {
+      margin-bottom: 15px;
+    }
+
+    .highlight ul {
+      margin-top: 15px;
+      padding-left: 20px;
+      list-style-type: disc;
+    }
+    .highlight ul li {
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    /* Footer Styling */
+    footer {
+      background-color: #004d66;
+      color: white;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      z-index: 999;
+      font-size: 16px;
+      margin-top: auto;
+    }
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+    footer a {
+      color: white;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: #00a8e1;
+    }
+
+    /* Button Styling */
+    .btn-primary {
+      background: linear-gradient(135deg, #007acc, #00a8e1);
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      border-radius: 30px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0, 122, 204, 0.3);
+    }
+    .btn-primary:hover {
+      background-color: #005f99;
+      transform: scale(1.05);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .main-content {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Toggle button for mobile view -->
+      <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Sidebar -->
+      <nav id="sidebarMenu" class="col-md-3 sidebar collapse d-md-block">
+        <h4 class="text-center">Doctor Vision</h4>
+        <a href="/" data-intro="This is the home page, where you can get an overview of Doctor Vision." data-step="1">Home</a>
+        <a href="diagnostics" data-intro="In Diagnostic Tools, you can manage and analyze diagnostic data using AI-powered tools." data-step="2">Diagnostic Tools</a>
+        <a href="research" data-intro="The Research section provides access to ongoing medical studies and results." data-step="3">Research</a>
+        <a href="Finances" data-intro="Monitor all financial transactions related to your medical diagnostics here." data-step="4">Finances</a>
+        <a href="audit" data-intro="In the Equipment Audit section, view reports and schedule maintenance for your diagnostic equipment." data-step="5">Equipment Audit</a>
+        <a href="#" data-intro="Visit this section to access training and resources for Doctor Vision." data-step="6">Training</a>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="col-md-9 main-content">
+        <h1>Welcome to Doctor Vision</h1>
+        <p>
+          Doctor Vision is a state-of-the-art platform for managing and optimizing medical diagnostics with computer vision. Start exploring our tools and features now.
+        </p>
+        <button class="btn btn-primary btn-lg" onclick="startTour()">Start Tour</button>
+
+        <!-- Why Doctor Vision Matters Section -->
+        <div class="highlight">
+          <h2>Why Doctor Vision Matters</h2>
+          <p>
+            Doctor Vision ensures accuracy, efficiency, and advancement in medical diagnostics. By leveraging cutting-edge computer vision technology, we provide reliable, fast, and comprehensive diagnostic solutions.
+          </p>
+          <h3>Enhancing Diagnostic Accuracy</h3>
+          <p>
+            Traditional diagnostics can suffer from errors or delays. Our AI-driven tools significantly reduce errors, enabling clinicians to make better-informed decisions for improved patient outcomes.
+          </p>
+
+          <h3>Streamlining Clinical Workflows</h3>
+          <p>
+            Automate tedious diagnostic tasks with Doctor Vision's advanced tools. Free up time for healthcare professionals to focus on delivering quality patient care.
+          </p>
+
+          <h3>Improving Research Outcomes</h3>
+          <p>
+            Access data-driven insights from a robust platform designed to support medical research. Collaborate with leading institutions and drive innovation in healthcare.
+          </p>
+
+          <h3>Key Features of Doctor Vision</h3>
+          <ul>
+            <li><strong>AI-Powered Diagnostics:</strong> Classify and analyze medical images with precision.</li>
+            <li><strong>Research Tools:</strong> Facilitate groundbreaking research with robust data analytics.</li>
+            <li><strong>Financial Oversight:</strong> Ensure transparency and efficiency in healthcare spending.</li>
+            <li><strong>Equipment Maintenance:</strong> Schedule audits and maintain your diagnostic tools for optimal performance.</li>
+          </ul>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>About Doctor Vision</h5>
+          <p>
+            Doctor Vision integrates AI and computer vision to deliver innovative solutions in medical diagnostics, empowering healthcare professionals and improving patient outcomes.
+          </p>
+        </div>
+  
+        <div class="col-md-4">
+          <h5>Contact Us</h5>
+          <p>Email: <a href="mailto:info@doctorvision.com">info@doctorvision.com</a></p>
+          <p>Phone: +1 123 456 7890</p>
+          <p>Address: 1234 HealthTech Avenue, City, Country</p>
+        </div>
+  
+        <div class="col-md-4">
+          <h5>Follow Us</h5>
+          <a href="#"><i class="fab fa-facebook-square fa-2x"></i></a>
+          <a href="#"><i class="fab fa-twitter-square fa-2x"></i></a>
+          <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
+          <a href="#"><i class="fab fa-instagram-square fa-2x"></i></a>
+        </div>
+      </div>
+  
+      <div class="row mt-3">
+        <div class="col-12">
+          <p>&copy; 2025 Doctor Vision. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+  <script>
+    function startTour() {
+      introJs().start();
+    }
+  </script>
+</body>
+</html>
