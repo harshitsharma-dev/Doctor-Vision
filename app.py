@@ -81,21 +81,35 @@ from flask import Flask, request, jsonify, render_template
 from inference_sdk import InferenceHTTPClient
 
 app = Flask(__name__)
-
 @app.route('/upload', methods=['POST'])
 def analyze_and_return_results():
-    if 'file' not in request.files:
-        return render_template('bids.html', error="No file part"), 400
+    if 'file' not in request.files or 'disease' not in request.form:
+        return render_template('bids.html', error="No file or disease selected"), 400
 
     file = request.files['file']
+    selected_disease = request.form['disease']
+
     if file.filename == '':
         return render_template('bids.html', error="No selected file"), 400
 
     try:
         # Save the uploaded file to a local directory
         filename = file.filename
-        upload_path = r"C:\Users\harsh\OneDrive\Documents\NewOne\uploads\\" + filename
+        upload_path = os.getcwd() + filename
+        print(upload_path)
         file.save(upload_path)
+
+        # Define model IDs for different diseases
+        model_ids = {
+            "brain_tumor": "brain_tumour_detection-p4qam/1",
+            "tb": "tb-chemm/1",
+            "pneumonia": "pneumonia-kefdw/1"
+        }
+
+        # Get the corresponding model ID
+        model_id = model_ids.get(selected_disease)
+        if not model_id:
+            return render_template('bids.html', error="Invalid disease selected"), 400
 
         # Initialize the inference client
         CLIENT = InferenceHTTPClient(
@@ -104,18 +118,15 @@ def analyze_and_return_results():
         )
 
         # Perform inference on the uploaded file
-        result = CLIENT.infer(upload_path, model_id="pneumonia-kefdw/1")
+        result = CLIENT.infer(upload_path, model_id=model_id)
 
-        # Extract relevant data from the result (customize this based on your result structure)
+        # Extract relevant data from the result
         predictions = result.get("predictions", [])
-        confidence_scores = [pred.get("confidence") for pred in predictions]
-        print(predictions)
-        # Render results in the template
-        return render_template('bids.html', predictions=predictions, confidence_scores=confidence_scores)
+        return render_template('bids.html', predictions=predictions)
 
     except Exception as e:
-        # Handle any exceptions and render error in the template
         return render_template('bids.html', error=f"An error occurred: {str(e)}"), 500
+
 
 
 @app.route('/diagnostics')
